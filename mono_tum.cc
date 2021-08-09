@@ -22,12 +22,13 @@
 
 /* To Do:
 
-Find better way to skip lines when getting new frame,
-(maybe executing the function inline to save file pointer?)
+Change main loop to an infinite loop and busy wait until a new frame loads into rgb.txt.
+Then load this single frame (similiar to LoadImages()).(copy from Load)
+Proccess the frame the same way is already written.
 
 */
 
-/* Daniel's smart notes
+/* Daniel's notes
 
 arg[0] = Examples/Monocular/TUMX.yaml or build own executable from similar source.
 argv[1] = Vocabulary/ORBvoc.txt always (static vocabulary)
@@ -50,17 +51,21 @@ argv[3] = sequence, must be updated always somehow
 #include <Converter.h>	
 using namespace std;
 
-void LoadImage(const string &strFile, vector<string> &vstrImageFilenames,vector<double> &vTimestamps, const int nLines);
+void LoadImage(const string &strFile, vector<string> &vstrImageFilenames,
+                vector<double> &vTimestamps);
 
 //our function for saving map
-void saveMap(ORB_SLAM2::System &SLAM);
+void saveMap(ORB_SLAM2::System &SLAM,string&);
 
 
 int main(int argc, char **argv)
 {
-    if(argc != 4)
+
+int i=0;
+
+    if(argc != 5)
     {
-        cerr << endl << "Usage: ./mono_tum path_to_vocabulary path_to_settings path_to_sequence" << endl;
+        cerr << endl << "Usage: ./mono_tum path_to_vocabulary path_to_settings path_to_sequence path_to_point_pointData" << endl;
         return 1;
     }
 
@@ -69,68 +74,128 @@ int main(int argc, char **argv)
     vector<double> vTimestamps;
     string strFile = string(argv[3])+"/rgb.txt";
 
+
+    string strPointData=string(argv[4])+"/pointData.csv";
+
+    std::ofstream pointData;
+    pointData.open(strPointData); //Choose location
+
     // Create SLAM system. It initializes all system threads and gets ready to process frames.
     ORB_SLAM2::System SLAM(argv[1],argv[2],ORB_SLAM2::System::MONOCULAR,true);
 
     // Vector for tracking time statistics
-    vector<float> vTimesTrack;
-    vTimesTrack.resize(nImages);
+    //vector<float> vTimesTrack;
+    //vTimesTrack.resize(nImages);
 
     cout << endl << "-------" << endl;
     cout << "Start processing ..." << endl;
 
     // Main loop
     cv::Mat im;
-    int nImages = 0;
+    //int nImages = 0;
 
-    while(1)
+
+    //
+    //
+    // create a new thread copying the points to pointData.csv
+    // passed parameters: reference to argv[4], reference to SLAM
+    // use the code from save_map()
+    //
+    //
+
+    ifstream f;
+    f.open(strFile.c_str());
+    string s;
+
+
+    std::cout<<"Here!"<<std::endl;
+
+getline(f,s);
+getline(f,s);
+getline(f,s);
+
+    std::cout<<"Here!"<<std::endl;
+
+
+    while(i<10000)
     {
-        LoadImage(strFile, vstrImageFilenames, vTimestamps, nImages); //includes busy wait
-        nImages += 1;
+        
+        // recieve a new image path from the rgb.txt ()
 
-        // Read image from file
-        im = cv::imread(string(argv[3])+"/"+vstrImageFilenames[nImages-1],CV_LOAD_IMAGE_UNCHANGED);
-        double tframe = vTimestamps[nImages-1];
 
-        if (im[0][0] == 'q') //need to stop somehow
+        // lock mutual mutex- shared with code which saving the information into rgb.txt
+
+
+        do
         {
-            cerr << endl << "Quitting..." <<endl;
-            break;
-        }
-            
+            getline(f,s);
+            //std::cout<<s<<std::endl;
+        } while (s.empty());
         
 
-#ifdef COMPILEDWITHC11
-        std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
-#else
-        std::chrono::monotonic_clock::time_point t1 = std::chrono::monotonic_clock::now();
-#endif
+        std::cout<<s<<std::endl;
+
+
+        if (s=="q")
+        {
+            std::cout<<"and now here!!"<<std::endl;        
+            break;
+        }
+
+        std::cout<<"Here!"<<std::endl;
+
+
+        //while (s.empty());  we need to check whether the f_pos pointer goes further if line is empty
+
+        stringstream ss;
+        ss << s;
+        double t;
+        string sRGB;
+        ss >> t;
+        ss >> sRGB;
+
+        //std::cout<<t<<std::endl<<sRGB<<std::endl;
+
+        im = cv::imread(string(argv[3])+"/"+sRGB,CV_LOAD_IMAGE_UNCHANGED);
+
+
+        if(im.empty())
+        {
+            cerr << endl << "Failed to load image at: " << string(argv[3]) << "/" << sRGB << endl;
+            return 1;
+        }
+
+        std::cout<<"Just read an image"<<std::endl;
+
+        /*if (!im.empty())
+        {
+            break;
+        }*/
+
+        
 
         // Pass the image to the SLAM system
-        SLAM.TrackMonocular(im,tframe);
+        SLAM.TrackMonocular(im,t);
 
-#ifdef COMPILEDWITHC11
-        std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
-#else
-        std::chrono::monotonic_clock::time_point t2 = std::chrono::monotonic_clock::now();
-#endif
 
-        double ttrack= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+        //double ttrack= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
+std::cout<<"Here!"<<std::endl;
 
-        vTimesTrack.push_back(ttrack);
 
+        i++;
     }
-
-    
 
     // Stop all threads
     SLAM.Shutdown();
 
-    //save map(MY)
-    saveMap(SLAM);
+
+
+    // saving the map
+
+    saveMap(SLAM,strPointData);
 
     // Tracking time statistics
-    sort(vTimesTrack.begin(),vTimesTrack.end());
+    /*sort(vTimesTrack.begin(),vTimesTrack.end());
     float totaltime = 0;
     for(int ni=0; ni<nImages; ni++)
     {
@@ -143,20 +208,23 @@ int main(int argc, char **argv)
     // Save camera trajectory
     SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
 
-    return 0;
+    return 0;*/
+
+
+
+
 }
 
-//must find faster way for skipping lines; maybe needed 2 
-void LoadImage(const string &strFile, vector<string> &vstrImageFilenames, vector<double> &vTimestamps, const int nLines)
+/*void LoadImage(const string &strFile, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)
 {
     ifstream f;
     f.open(strFile.c_str());
 
-    // skip first lines, as num of already processed frames + 3
+    // skip first three lines
     string s0;
-
-    for (size_t i = 0; i < nlines+3; i++)
-        getline(f,s0);
+    getline(f,s0);
+    getline(f,s0);
+    getline(f,s0);
 
     
         while(f.eof());
@@ -174,13 +242,15 @@ void LoadImage(const string &strFile, vector<string> &vstrImageFilenames, vector
                 ss >> sRGB;
                 vstrImageFilenames.push_back(sRGB);
             }
-}
+}*/
 
-void saveMap(ORB_SLAM2::System &SLAM)
+void saveMap(ORB_SLAM2::System &SLAM,string &strPointData)
 {
+    std::cout<<"saving the map"<<std::endl;
+
     std::vector<ORB_SLAM2::MapPoint*> mapPoints = SLAM.GetMap()->GetAllMapPoints();
     std::ofstream pointData;
-    pointData.open("/tmp/pointData.csv"); //Choose location
+    pointData.open(strPointData); //Choose location
     for(auto p : mapPoints)
     {
         if (p != NULL)
