@@ -1,3 +1,8 @@
+
+
+
+
+
 #include<iostream>
 #include<algorithm>
 #include<fstream>
@@ -8,31 +13,36 @@
 #include "opencv2/core.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
-#include <opencv2/videoio.hpp>
-#include<System.h>
+#include <System.h>
 #include <Converter.h>	
-#include<pthread.h>
-#include "ctello.h"
+#include <pthread.h>
+//#include "ctello.h"
 
-const char* const TELLO_STREAM_URL{"udp://0.0.0.0:11111"};
+//const char* const TELLO_STREAM_URL{"udp://0.0.0.0:11111"};
 
 using namespace::std;
-using ctello::Tello;
+//using ctello::Tello;
 using cv::CAP_FFMPEG;
 using cv::imshow;
 using cv::VideoCapture;
 using cv::waitKey;
 
-VideoCapture capture{TELLO_STREAM_URL, cv::CAP_FFMPEG};
-
-
 void saveMap(ORB_SLAM2::System &SLAM,string&);
 
 bool ret=false;
+bool finish=false;
 
-Tello tello;
+VideoCapture capture;
+    cv::Mat im;
+
+pthread_mutex_t my_mutex;
+
+
+//Tello tello;
 
 void* scan(void *arg);
+
+void* takePicture(void*);
 
 
 
@@ -46,30 +56,33 @@ int main(int argc, char **arg)
 
 
     //check connection 
-    if (!tello.Bind())
+    /*if (!tello.Bind())
     {
         return 0;
-    }
+    }*/
 
-    pthread_t thread;
-    pthread_attr_t attr;
+    pthread_mutex_init(&my_mutex,NULL);
+
+    pthread_t thread1;
+    pthread_attr_t attr1;
 
     //create a new thread
 
-    pthread_attr_init(&attr);
-    pthread_create(&thread, NULL, scan, arg);
-
-    tello.SendCommand("streamon");
+    /*tello.SendCommand("streamon");
      while(!(tello.ReceiveResponse()));
-
     tello.SendCommand("takeoff");
-     while (!(tello.ReceiveResponse()));
+     while (!(tello.ReceiveResponse()));*/
+
 
      
-     tello.SendCommand("up 50");
-    while (!(tello.ReceiveResponse()));
 
-    for (size_t i = 0; i < 2; i++) //change to 18 iterations for 360deg
+     pthread_attr_init(&attr1);
+    pthread_create(&thread1, &attr1, scan, arg);
+   
+    /*tello.SendCommand("up 50");
+    while (!(tello.ReceiveResponse()));*/
+
+    /*for (size_t i = 0; i < 4; i++) //change to 18 iterations for 360deg
     {
         tello.SendCommand("cw 20");
          while (!(tello.ReceiveResponse()));
@@ -79,22 +92,27 @@ int main(int argc, char **arg)
           while (!(tello.ReceiveResponse()));
         tello.SendCommand("up 50");
          while (!(tello.ReceiveResponse()));
-    }
+    }*/
 
-    sleep(10);
+    
+
+    sleep(100);
+
+    finish=true;
 
     ret = true;
-    //pthread_join(thread, NULL);
+    pthread_join(thread1, NULL);
+    
 
 
 
 
 
 
+    cout<<"dane all"<<endl;
 
-
-    tello.SendCommand("land");
-    while (!(tello.ReceiveResponse()));
+    /*tello.SendCommand("land");
+    while (!(tello.ReceiveResponse()));*/
 
     return 0;
 }
@@ -107,61 +125,100 @@ void* scan(void* arg)
 
     char** argv=(char**)arg;
 
-    string strPointData=string(argv[4])+"pointData.csv";
-
-    // Create SLAM system. It initializes all system threads and gets ready to process ims.
+    // Create SLAM system. It initializes all system threads and gets ready to process frames.
     ORB_SLAM2::System SLAM(argv[1],argv[2],ORB_SLAM2::System::MONOCULAR,true);
+
+    string strPointData=string(argv[4])+"/PointData.csv";
 
     cout << endl << "-------" << endl;
     cout << "Start processing ..." << endl;
 
     // Main loop
-    cv::Mat im;
+    pthread_t thread2;
+    pthread_attr_t attr2;
+    pthread_attr_init(&attr2);
+    pthread_create(&thread2, &attr2, takePicture, nullptr);
     
-    int index{0};
-    bool busy{false};
-    while(!ret)
+
+    while (!ret)
+        cout<<"main: error"<<endl;
+
+    while(!finish)
     {
         //############################
-        
 
         
-        capture >> im;
-
-        // Listen response
-
         //see tellos camera stream
         
 
         
-        std::cout<<"Just read an image"<<std::endl;
-
-        if (!im.empty())
+        //cout<<"In the main loop"<<i<<endl;
+        cout<<"main: waiting for mutex"<<i<<endl;
+        pthread_mutex_lock(&my_mutex);
+        cout<<"main: mutex aquired"<<i<<endl;
+        if (im.empty())
         {
-            cout<<"Image is empty!"<<endl;
+            cout<<"main: Image is empty"<<endl;
         }
         else
         {
-        // Pass the image to the SLAM system
-        imshow("CTello Stream", im);
-        double t = capture.get(CV_CAP_PROP_POS_MSEC);
-        SLAM.TrackMonocular(im, t);
-        
+            double t=capture.get(CV_CAP_PROP_POS_MSEC );
+            
+            SLAM.TrackMonocular(im,t);
         }
+        pthread_mutex_unlock(&my_mutex);
+        cout<<"main: mutex released"<<i<<endl;
 
         //double ttrack= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
-        sleep(0.1);
+
         i++;
+        
     }
 
     // Stop all threads
     SLAM.Shutdown();
     // saving the map
 
-    saveMap(SLAM,strPointData);
-
+    //saveMap(SLAM,strPointData);
+pthread_join(thread2, NULL);
     return nullptr;
 
+}
+
+
+void* takePicture(void* ptr)
+{
+    int i=0;
+    int deviceID = 0;             // 0 = open default camera
+    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+    // open selected camera using selected API
+    capture.open(deviceID, apiID);
+    if (!capture.isOpened()) {
+        cerr << "ERROR! Unable to open camera\n";
+        return nullptr;
+    }
+    ret=true;
+    while (!finish)
+    {
+        cout<<"thread: waiting for mutex"<<i<<endl;
+        cout<<"thread: mutex aquired"<<i<<endl;
+        pthread_mutex_lock(&my_mutex);
+        capture.read(im);
+        cout<<"thread: array elements: "<<im.total()<<endl;
+                if (im.empty()) {
+            cerr << "ERROR! blank frame grabbed\n";
+            break;
+                }
+        std::cout<<"thread: Just read an image"<<i<<std::endl;
+        //imshow("CTello Stream", im);
+        pthread_mutex_unlock(&my_mutex);
+        cout<<"thread: mutex released"<<i<<endl;
+        
+        sleep(0.1);
+        i++;
+    }
+    cout<<"thread: done!"<<endl;
+    return nullptr;
 }
 
 
