@@ -4,9 +4,9 @@ import csv
 import numpy as np
 
 #settings:
-angel= 15.0 #the amount of degrees in each section defult prob 20
-points_file="data\\pointData0 (1)"
-
+angel= 20.0 #the amount of degrees in each section defult prob 20
+points_file="data\\pointData0"
+hight_removal=1.0 # only looks at points from this hight and more, put this to -100.0 if u dont want limit
 
 def points_in_section(points, degree1, degree2):
     #returns the points in the section from degree1 to degree2
@@ -36,6 +36,8 @@ def rotate(vector ,degree):
 def main():
     max_value=0.0
     points= []
+    points3d= []
+
     x= []
     y= []
     with open(points_file+ ".csv", newline='') as f:
@@ -43,10 +45,14 @@ def main():
         data = list(reader)
     for i in data:
         points.append([float(i[0]),float(i[2])]) #reads the points, z value= float(i[1])
+        points3d.append([float(i[0]),float(i[2]),float(i[1])])
         x.append(float(i[0]))
         y.append(float(i[2]))
         
 
+    for point in points3d: #deletes points for hight_removal hight (point below cause they have more noise)
+        if point[2]<=-hight_removal:
+            points.remove([point[0], point[1]])
 
     #TODO: maybe add clasters and noise cleaning
 
