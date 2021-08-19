@@ -16,6 +16,7 @@
 #include <System.h>
 #include <Converter.h>	
 #include <pthread.h>
+#include <thread>
 #include "ctello.h"
 
 const char* const TELLO_STREAM_URL{"udp://0.0.0.0:11111"};
@@ -36,17 +37,16 @@ bool finish=false;
 cv::Mat im;
 double t;
 
-pthread_mutex_t im_lock;
 
 
-Tello tello;
+//Tello tello;
 
 //our function to use ORB_SLAM for saving map. modified by mono_tum.cc
-void* scan(void *arg);
+void scan(void *arg);
 
 
 //multithreaded implementation to analize pictures faster (our code)
-void* takePicture(void*);
+void takePicture();
 
 
 //main was written by ourselves
@@ -60,17 +60,14 @@ int main(int argc, char **arg)
     }
 
     //check connection 
-    if (!tello.Bind())
+    /*if (!tello.Bind())
     {
         return 0;
     }
-    cout<<"connected to tello"<<endl;
-    pthread_mutex_init(&im_lock,NULL);
+    cout<<"connected to tello"<<endl;*/
 
-    pthread_t thread1;
-    pthread_attr_t attr1;
 
-    tello.SendCommand("streamon");
+    /*tello.SendCommand("streamon");
      while(!(tello.ReceiveResponse()));
 
     
@@ -80,16 +77,13 @@ int main(int argc, char **arg)
      cout<<"took off"<<endl;
 
     tello.SendCommand("up 50");
-    while (!(tello.ReceiveResponse()));
+    while (!(tello.ReceiveResponse()));*/
 
 
     //start creating map
-    pthread_attr_init(&attr1);
-    pthread_create(&thread1, &attr1, scan, arg);
+scan(arg);
 
-    sleep(10);
-
-    for (size_t i = 0; i < 3; i++) //change to 18 iterations for 360deg
+    /*for (size_t i = 0; i < 4; i++) //change to 18 iterations for 360deg
     {
         tello.SendCommand("cw 20");
          while (!(tello.ReceiveResponse()));
@@ -99,30 +93,22 @@ int main(int argc, char **arg)
           while (!(tello.ReceiveResponse()));
         tello.SendCommand("up 10");
          while (!(tello.ReceiveResponse()));
-    }
+    }*/
 
     //let scan to finish
-    sleep(4);
-    
 
     //save map
-    finish=true;
-    ret = true;
-    pthread_join(thread1, NULL);
-    
     //call algorythm here
-
-
     //mave twards the door...
 
-    tello.SendCommand("land");
-    while (!(tello.ReceiveResponse()));
+    /*tello.SendCommand("land");
+    while (!(tello.ReceiveResponse()));*/
 
     return 0;
 }
 
 
-void* scan(void* arg)
+void scan(void* arg)
 {
     cv::Mat frame;
     int i=0;
@@ -138,23 +124,18 @@ void* scan(void* arg)
     cout << endl << "-------" << endl;
     cout << "Start processing ..." << endl;
 
-    // Main loop
-    pthread_t thread2;
-    pthread_attr_t attr2;
-    pthread_attr_init(&attr2);
-    pthread_create(&thread2, &attr2, takePicture, nullptr);
-    
+    std::thread takePictureThread(takePicture);
     // cout<<"no problem1"<<endl;
     while (!ret)
         cout<<"waiting"<<endl; //wait for videoCapture to be initiallized by thread2
 // cout<<"no problem2"<<endl;
-    while(!finish) //checking main thread request
+    while(true) //checking main thread request
     {   
-        cout<<"no problem3"<<endl;
+        // cout<<"no problem3"<<endl;
         //see tellos camera stream
     
-        pthread_mutex_lock(&im_lock);
-        sleep(0.2);
+        // pthread_mutex_lock(&my_mutex);
+        // sleep(0.2);
         // cout << "II "<< im.empty() << endl;
         if (im.empty())
             cout<<"image is empty"<<endl;
@@ -164,7 +145,7 @@ void* scan(void* arg)
             SLAM.TrackMonocular(im,t);
         }
         
-        pthread_mutex_unlock(&im_lock);        
+        // pthread_mutex_unlock(&my_mutex);        
 
         //double ttrack= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
         i++;  
@@ -175,28 +156,24 @@ void* scan(void* arg)
     // saving the map
 
     //saveMap(SLAM,strPointData);
-    pthread_join(thread2, NULL);
-    return nullptr;
+    takePictureThread.join();
 
 }
 
 
-void* takePicture(void* ptr)
+void takePicture()
 {
+    //currently using leptop camera, update on Monday
     int i=0;
 
-    VideoCapture capture{TELLO_STREAM_URL, cv::CAP_FFMPEG};
+    VideoCapture capture(0);//{TELLO_STREAM_URL, cv::CAP_FFMPEG};
     ret=true;//let thread1 continue
-    while (!finish) //communication with main thread
+    while (true) //communication with main thread
     {
-        pthread_mutex_lock(&im_lock);
+        // pthread_mutex_lock(&my_mutex);
         capture>>im;
-        t=capture.get(CV_CAP_PROP_POS_MSEC);
-        if (im.empty())
-        {
-            cerr << "ERROR: blank frame grabbed\n";
-            break;
-        }
+        // t=capture.get(CV_CAP_PROP_POS_MSEC);
+        
         // cout<<"Just read an image"<<endl;
 
         //camera stream to screen:
@@ -204,15 +181,14 @@ void* takePicture(void* ptr)
         if (waitKey(5) >= 0)
                 break;*/
         // sleep(0.1);
-        pthread_mutex_unlock(&im_lock);
-        sleep(0.1);
+        // pthread_mutex_unlock(&my_mutex);
+        // sleep(0.1);
         // cout<<"here"<<endl;
     
         i++;
     }
 
         finish=true;
-    return nullptr;
 }
 
 
@@ -234,4 +210,5 @@ void saveMap(ORB_SLAM2::System &SLAM,string &strPointData)
     }
     pointData.close();
 }
+
 
