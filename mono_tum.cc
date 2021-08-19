@@ -32,6 +32,7 @@ void saveMap(ORB_SLAM2::System &SLAM,string&);
 
 bool ret=false;
 bool finish=false;
+bool start=false;
 
 cv::Mat im;
 double t;
@@ -69,25 +70,27 @@ int main(int argc, char **arg)
 
     pthread_t thread1;
     pthread_attr_t attr1;
-
-    tello.SendCommand("streamon");
-     while(!(tello.ReceiveResponse()));
-
-    
-    tello.SendCommand("takeoff");
-     while (!(tello.ReceiveResponse()));
-
-     cout<<"took off"<<endl;
-
-    tello.SendCommand("up 50");
-    while (!(tello.ReceiveResponse()));
-
-
     //start creating map
     pthread_attr_init(&attr1);
     pthread_create(&thread1, &attr1, scan, arg);
 
-    sleep(10);
+    tello.SendCommand("streamon");
+     while(!(tello.ReceiveResponse()));
+    
+    tello.SendCommand("takeoff");
+    while (!(tello.ReceiveResponse()));
+
+    tello.SendCommand("up 50");
+    while (!(tello.ReceiveResponse()));
+
+    start = true;
+
+
+   
+
+     cout<<"thread1 created"<<endl;
+
+    sleep(1);
 
     for (size_t i = 0; i < 3; i++) //change to 18 iterations for 360deg
     {
@@ -101,8 +104,11 @@ int main(int argc, char **arg)
          while (!(tello.ReceiveResponse()));
     }
 
+    cout<<"finished rotating"<<endl;
+
+
     //let scan to finish
-    sleep(4);
+    //sleep(4);
     
 
     //save map
@@ -124,6 +130,7 @@ int main(int argc, char **arg)
 
 void* scan(void* arg)
 {
+
     cv::Mat frame;
     int i=0;
 
@@ -148,6 +155,9 @@ void* scan(void* arg)
     while (!ret)
         cout<<"waiting"<<endl; //wait for videoCapture to be initiallized by thread2
 // cout<<"no problem2"<<endl;
+
+    while (!start)
+    cout<<"waiting for messiah"<<endl;
     while(!finish) //checking main thread request
     {   
         cout<<"no problem3"<<endl;
@@ -158,7 +168,7 @@ void* scan(void* arg)
         // cout << "II "<< im.empty() << endl;
         if (im.empty())
             cout<<"image is empty"<<endl;
-        else
+        else if (i%10==0)
         {
             cout<<"passing image to slam"<<endl;
             SLAM.TrackMonocular(im,t);
@@ -176,6 +186,7 @@ void* scan(void* arg)
 
     //saveMap(SLAM,strPointData);
     pthread_join(thread2, NULL);
+
     return nullptr;
 
 }
@@ -187,6 +198,11 @@ void* takePicture(void* ptr)
 
     VideoCapture capture{TELLO_STREAM_URL, cv::CAP_FFMPEG};
     ret=true;//let thread1 continue
+
+     while (!start)
+    cout<<"waiting for messiah"<<endl;
+
+
     while (!finish) //communication with main thread
     {
         pthread_mutex_lock(&im_lock);
@@ -195,6 +211,7 @@ void* takePicture(void* ptr)
         if (im.empty())
         {
             cerr << "ERROR: blank frame grabbed\n";
+            pthread_mutex_unlock(&im_lock);
             break;
         }
         // cout<<"Just read an image"<<endl;
@@ -206,7 +223,7 @@ void* takePicture(void* ptr)
         // sleep(0.1);
         pthread_mutex_unlock(&im_lock);
         sleep(0.1);
-        // cout<<"here"<<endl;
+        // cout<<"here"<<endl;   
     
         i++;
     }
