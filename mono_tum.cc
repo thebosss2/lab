@@ -1,8 +1,4 @@
 
-
-
-
-
 #include<iostream>
 #include<algorithm>
 #include<fstream>
@@ -19,28 +15,27 @@
 #include <thread>
 #include "ctello.h"
 
-const char* const TELLO_STREAM_URL{"udp://0.0.0.0:11111"};
+const char* const TELLO_STREAM_URL{"udp://0.0.0.0:11111?fifo_size=100000"};
 
-using namespace::std;
 using ctello::Tello;
 using cv::CAP_FFMPEG;
 using cv::imshow;
 using cv::VideoCapture;
 using cv::waitKey;
+using std::count;
 
 //function from moodle
 void saveMap(ORB_SLAM2::System &SLAM,string&);
 
 bool ret=false;
 bool finish=false;
-bool start=false;
-
+bool orbSlamRunning = false;
 cv::Mat im;
 double t;
 
 
 
-//Tello tello;
+Tello tello;
 
 //our function to use ORB_SLAM for saving map. modified by mono_tum.cc
 void scan(void *arg);
@@ -61,50 +56,55 @@ int main(int argc, char **arg)
     }
 
     //check connection 
-    /*if (!tello.Bind())
+    if (!tello.Bind())
     {
         return 0;
     }
-    cout<<"connected to tello"<<endl;*/
+    cout<<"connected to tello"<<endl;
 
 
-    /*tello.SendCommand("streamon");
+    tello.SendCommand("streamon");
      while(!(tello.ReceiveResponse()));
     
+    std::thread ScanThread(scan,arg);
+
+    while(!orbSlamRunning){
+        usleep(20000);
+    }
     tello.SendCommand("takeoff");
-    while (!(tello.ReceiveResponse()));
+    sleep(3);
 
     tello.SendCommand("up 50");
-    while (!(tello.ReceiveResponse()));*/
+    sleep(2);
 
-    start = true;
+    cout<<"start to rotate"<<endl;
 
     //start creating map
-scan(arg);
-
-    /*for (size_t i = 0; i < 4; i++) //change to 18 iterations for 360deg
+    
+    for (size_t i = 0; i < 4; i++) //change to 18 iterations for 360deg
     {
         tello.SendCommand("cw 20");
-         while (!(tello.ReceiveResponse()));
-        tello.SendCommand("up 20");
-         while (!(tello.ReceiveResponse()));
-        tello.SendCommand("down 20");
-          while (!(tello.ReceiveResponse()));
-        tello.SendCommand("up 10");
-         while (!(tello.ReceiveResponse()));
-    }*/
+        sleep(2);
+         
+        tello.SendCommand("forward 20");
+        sleep(2);
 
-    cout<<"finished rotating"<<endl;
+        tello.SendCommand("back 20");
+        sleep(2); 
+        
+        //cout<<"rotation no. "<<i<<endl;
+    }
 
-
+    //cout<<"finished rotating"<<endl;
+    finish=true;
+    ScanThread.join();
     //let scan to finish
 
     //save map
     //call algorythm here
     //mave twards the door...
 
-    /*tello.SendCommand("land");
-    while (!(tello.ReceiveResponse()));*/
+    tello.SendCommand("land");
 
     return 0;
 }
@@ -129,10 +129,13 @@ void scan(void* arg)
 
     std::thread takePictureThread(takePicture);
     // cout<<"no problem1"<<endl;
-    while (!ret)
-        cout<<"waiting"<<endl; //wait for videoCapture to be initiallized by thread2
+    while(!ret){
+        usleep(20000);
+    }
+    orbSlamRunning=true;
+        // cout<<"waiting"<<endl; //wait for videoCapture to be initiallized by thread2
 // cout<<"no problem2"<<endl;
-    while(true) //checking main thread request
+    while(!finish) //checking main thread request
     {   
         // cout<<"no problem3"<<endl;
         //see tellos camera stream
@@ -144,7 +147,7 @@ void scan(void* arg)
             cout<<"image is empty"<<endl;
         else if (i%10==0)
         {
-            cout<<"passing image to slam"<<endl;
+            // cout<<"passing image to slam"<<endl;
             SLAM.TrackMonocular(im,t);
         }
         
@@ -158,7 +161,7 @@ void scan(void* arg)
     SLAM.Shutdown();
     // saving the map
 
-    //saveMap(SLAM,strPointData);
+    saveMap(SLAM,strPointData);
     takePictureThread.join();
 
 }
@@ -169,9 +172,9 @@ void takePicture()
     //currently using leptop camera, update on Monday
     int i=0;
 
-    VideoCapture capture(0);//{TELLO_STREAM_URL, cv::CAP_FFMPEG};
+    VideoCapture capture{TELLO_STREAM_URL, cv::CAP_FFMPEG};
     ret=true;//let thread1 continue
-    while (true) //communication with main thread
+    while (!finish) //communication with main thread
     {
         // pthread_mutex_lock(&my_mutex);
         capture>>im;
