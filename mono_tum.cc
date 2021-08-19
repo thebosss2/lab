@@ -33,6 +33,7 @@ void saveMap(ORB_SLAM2::System &SLAM,string&);
 
 bool ret=false;
 bool finish=false;
+bool start=false;
 
 cv::Mat im;
 double t;
@@ -69,16 +70,14 @@ int main(int argc, char **arg)
 
     /*tello.SendCommand("streamon");
      while(!(tello.ReceiveResponse()));
-
     
     tello.SendCommand("takeoff");
-     while (!(tello.ReceiveResponse()));
-
-     cout<<"took off"<<endl;
+    while (!(tello.ReceiveResponse()));
 
     tello.SendCommand("up 50");
     while (!(tello.ReceiveResponse()));*/
 
+    start = true;
 
     //start creating map
 scan(arg);
@@ -95,6 +94,9 @@ scan(arg);
          while (!(tello.ReceiveResponse()));
     }*/
 
+    cout<<"finished rotating"<<endl;
+
+
     //let scan to finish
 
     //save map
@@ -110,6 +112,7 @@ scan(arg);
 
 void scan(void* arg)
 {
+
     cv::Mat frame;
     int i=0;
 
@@ -139,7 +142,7 @@ void scan(void* arg)
         // cout << "II "<< im.empty() << endl;
         if (im.empty())
             cout<<"image is empty"<<endl;
-        else
+        else if (i%10==0)
         {
             cout<<"passing image to slam"<<endl;
             SLAM.TrackMonocular(im,t);
