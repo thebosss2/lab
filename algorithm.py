@@ -6,7 +6,7 @@ from scipy.spatial import distance
 # settings:
 angel = 20.0  # the amount of degrees in each section default prob 20
 folder = "data"
-suffix = "pointData0 (1)"
+suffix = "PointData"
 points_file = "{}/{}".format(folder, suffix)
 height_removal = -2.0  # only looks at points from this height and more, put this to -100.0 if u dont want limit
 

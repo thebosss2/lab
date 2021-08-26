@@ -64,7 +64,8 @@ int main(int argc, char **arg)
 
 
     tello.SendCommand("streamon");
-     while(!(tello.ReceiveResponse()));
+     while(!(tello.ReceiveResponse()))
+        sleep(2);
     
     std::thread ScanThread(scan,arg);
 
@@ -72,24 +73,26 @@ int main(int argc, char **arg)
         usleep(20000);
     }
     tello.SendCommand("takeoff");
-    sleep(3);
+    while(!(tello.ReceiveResponse()))
+        sleep(2);
 
-    tello.SendCommand("up 50");
-    sleep(2);
+    tello.SendCommand("up 100");
+    while(!(tello.ReceiveResponse()))
+        sleep(2);
 
     cout<<"start to rotate"<<endl;
 
     //start creating map
     
-    for (size_t i = 0; i < 4; i++) //change to 18 iterations for 360deg
+    for (size_t i = 0; i < 19; i++) //change to 18 iterations for 360deg
     {
         tello.SendCommand("cw 20");
         sleep(2);
          
-        tello.SendCommand("forward 20");
-        sleep(2);
+        tello.SendCommand("forward 30");
+        sleep(4);
 
-        tello.SendCommand("back 20");
+        tello.SendCommand("back 30");
         sleep(2); 
         
         //cout<<"rotation no. "<<i<<endl;
