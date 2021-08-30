@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import csv
 import numpy as np
 from scipy.spatial import distance
+import cmath
 # settings:
-angel = 20.0  # the amount of degrees in each section default prob 20
+angel = math.pi / 9  # the amount of degrees in each section default prob 20
 folder = "data"
 suffix = "PointData"
 points_file = "{}/{}".format(folder, suffix)
@@ -58,16 +59,52 @@ def clean_noise(points):
             to_remove.append(p)
     points = [x for x in points if not x in to_remove]
     return points
-    # for i in range(10):
-    #     min_mean_dist_point = points[0]
-    #     min_mean_dist = 1000000
-    #     for point in points:
-    #         mean_dist = 0
-    #         for p in points:
-    #             mean_dist += np.linalg.norm(point-p) / len(points)
-    #         if mean_dist < min_mean_dist:
-    #             min_mean_dist_point = point
-    #     points.remove(min_mean_dist_point)
+
+def sort_by_index(arr, i):
+    less = []
+    equal = []
+    greater = []
+    if len(arr) > 1:
+        pivot = arr[0][i]
+        for x in arr:
+            if x[i] < pivot:
+                less.append(x)
+            elif x[i] == pivot:
+                equal.append(x)
+            elif x[i] > pivot:
+                greater.append(x)
+        return sort_by_index(less,i)+equal+sort_by_index(greater,i)
+    else:
+        return arr
+
+
+def get_exit_point(points):
+    
+    polar_points = []
+    approx_poligon_polar = []
+
+    x_arr = []
+    y_arr = []
+
+    for x in points:
+        rho, phi = cmath.polar(complex(x[0],x[1]))
+        polar_points.append([phi + math.pi,rho])
+     
+    polar_points = sort_by_index(polar_points, 0)
+
+    for section in np.arange(0, 2* math.pi, math.pi / 90):
+        distances = [x[1] for x in polar_points if x[0] > section and x[0] < section + angel]
+        if len(distance) == 0:
+            continue
+        approx_poligon_polar.append([section + angel / 2 - math.pi, np.mean(distances)])
+
+    for p in approx_poligon_polar:
+        tmp = [p[1] * np.cos(approx_poligon_polar[0]), p[1] * np.sin(approx_poligon_polar[0])]
+        approx_poligon_polar.append(tmp)
+        x_arr.append(tmp[0])
+        y_arr.append(tmp[1])
+    
+    plt.scatter(x_arr, y_arr, color="green")
 
 
 def main():
@@ -97,57 +134,59 @@ def main():
 
     # TODO: maybe only take points from some height
 
-    for section in range(0, 360, 2):  # checks each section
-        sub_points = points_in_section(points, section, section + angel)  # all the points in the section
-        if len(sub_points) == 0:
-            continue
-        per_point_distance = []
-        for point in sub_points:
-            per_point_distance.append(math.sqrt(point[0] ** 2 + point[1]**2))
+    # for section in range(0, 360, 2):  # checks each section
+    #     sub_points = points_in_section(points, section, section + angel)  # all the points in the section
+    #     if len(sub_points) == 0:
+    #         continue
+    #     per_point_distance = []
+    #     for point in sub_points:
+    #         per_point_distance.append(math.sqrt(point[0] ** 2 + point[1]**2))
 
-        # TODO: add finding longest path of dots
+    #     # TODO: add finding longest path of dots
 
-        max = 0
-        second_score = 0
+    #     max = 0
+    #     second_score = 0
 
-        max_index = 0
-        for i in range(len(per_point_distance)):
-            if per_point_distance[i] > max:
-                max = per_point_distance[i]
-                max_index = i
-        value = max  # - np.amin(distance)
+    #     max_index = 0
+    #     for i in range(len(per_point_distance)):
+    #         if per_point_distance[i] > max:
+    #             max = per_point_distance[i]
+    #             max_index = i
+    #     value = max  # - np.amin(distance)
 
-        # if value > max_value:
-        #     max_value = value
-        #     out_of_room = sub_points[max_index]
-        #     max_section = section
+    #     # if value > max_value:
+    #     #     max_value = value
+    #     #     out_of_room = sub_points[max_index]
+    #     #     max_section = section
 
-        value = 0
-        mean_dist = np.mean(per_point_distance)
-        mean_std = np.mean(per_point_distance)
-        std_cuttoffs = [mean_dist - mean_std * 2.5, mean_dist + mean_std * 2.5]
-        centered_distances = [x for x in per_point_distance if x > std_cuttoffs[0] and x < std_cuttoffs[1]]
-        interval_h = np.max(centered_distances) - np.min(centered_distances)
-        interval_den_in = interval_h / len(centered_distances)
-        segment_score = interval_h ** 2 + interval_den_in
-        if segment_score > max_value:
-            max_value = segment_score
-            out_of_room = sub_points[max_index]
-            max_section = section
+    #     value = 0
+    #     mean_dist = np.mean(per_point_distance)
+    #     mean_std = np.mean(per_point_distance)
+    #     std_cuttoffs = [mean_dist - mean_std * 2.5, mean_dist + mean_std * 2.5]
+    #     centered_distances = [x for x in per_point_distance if x > std_cuttoffs[0] and x < std_cuttoffs[1]]
+    #     interval_h = np.max(centered_distances) - np.min(centered_distances)
+    #     interval_den_in = interval_h / len(centered_distances)
+    #     segment_score = interval_h ** 2 + interval_den_in
+    #     if segment_score > max_value:
+    #         max_value = segment_score
+    #         out_of_room = sub_points[max_index]
+    #         max_section = section
 
     for point in points:
         x.append(float(point[0]))
         y.append(float(point[1]))
 
     plt.scatter(x, y, color="blue")
-    x1 = []
-    y1 = []
-    for i in points_in_section(points, max_section, max_section + angel):
-        x1.append(i[0])
-        y1.append(i[1])
-    plt.scatter(x1, y1, color="yellow")
+    # x1 = []
+    # y1 = []
+    # for i in points_in_section(points, max_section, max_section + angel):
+    #     x1.append(i[0])
+    #     y1.append(i[1])
+    # plt.scatter(x1, y1, color="yellow")
 
-    plt.scatter([out_of_room[0]], [out_of_room[1]], color="black")
+    # plt.scatter([out_of_room[0]], [out_of_room[1]], color="black")
+
+    get_exit_point(points)
 
     plt.savefig(f"data/map/{suffix}.png")  # prints the map, REMOVE WHEN IN DRONE
 
