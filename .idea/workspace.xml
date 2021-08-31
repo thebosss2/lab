@@ -8,9 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="55494412-cc34-4924-862e-cb51698727ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/zuk/Autonomous-navigation" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuk/Autonomous-navigation" beforeDir="false" afterPath="$PROJECT_DIR$/zuk/Autonomous-navigation" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zuk/Autonomous-navigation/AutonomousDrone.py" beforeDir="false" afterPath="$PROJECT_DIR$/zuk/Autonomous-navigation/AutonomousDrone.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
