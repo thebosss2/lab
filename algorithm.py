@@ -9,9 +9,9 @@ import time
 
 # settings:
 angel = 10 * (math.pi / 180)  # the amount of degrees in each section default prob 20
-folder = "data"  # temporary variables for our convenient
+# folder = "data"  # temporary variables for our convenient
 suffix = "PointData"
-points_file = "{}/{}".format(folder, suffix)
+# points_file = "{}/{}".format(folder, suffix)
 height_removal = -2.0  # only looks at points from this height and more, put this to -100.0 if u dont want limit
 radius = 0.2  # variables used to clean isolated points
 density = 2
@@ -58,7 +58,7 @@ def to_polar(points):  # convert cartesian coordinates to polar
     return polar_points
 
 
-def get_exit_point(points):
+def find_exit_point(points):
     polar_points = to_polar(points)
 
     polar_points = sort_by_index(polar_points, 0)  # sort the points by the angular coordinate
@@ -94,11 +94,11 @@ def get_exit_point(points):
     return exit_point
 
 
-def main():
+def exit_algorythm(points_file):
     points = []
     points3d = []
 
-    with open(points_file + ".csv", newline='') as f:  # read the points from the file edited by ORB_SLAM2
+    with open(points_file, newline='') as f:  # read the points from the file edited by ORB_SLAM2
         reader = csv.reader(f)
         data = list(reader)
     for i in data:
@@ -131,7 +131,7 @@ def main():
     plt.scatter(x, y, color="blue")
 
     exit_time = time.time()
-    exit_point = get_exit_point(points)  # find the exit point and paint it in yellow
+    exit_point = find_exit_point(points)  # find the exit point and paint it in yellow
     plt.scatter(exit_point[0], exit_point[1], color="yellow")
 
     print("Time to clean noise: {}".format(exit_time - clean_time))
@@ -139,6 +139,3 @@ def main():
 
     # plt.show()  # show the features` map
     plt.savefig(f"data/map/{suffix}.png")  # save the map for later analysis
-
-
-main()
