@@ -1,0 +1,8 @@
+Frame Id: 9, Is Wall: True,distance to checkpoint:0.12283351005930751
+Frame Id: 113, Is Wall: False,distance to checkpoint:0.7444460642998743
+Frame Id: 131, Is Wall: False,distance to checkpoint:1.6966864397669985
+Frame Id: 178, Is Wall: False,distance to checkpoint:1.1315746415500947
+Frame Id: 164, Is Wall: False,distance to checkpoint:2.1464947812787694
+Frame Id: 172, Is Wall: True,distance to checkpoint:0.2086391856848804
+Frame Id: 174, Is Wall: False,distance to checkpoint:1.317892131552173
+Frame Id: 170, Is Wall: True,distance to checkpoint:0.3320039419105466

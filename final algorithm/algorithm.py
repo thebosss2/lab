@@ -12,7 +12,7 @@ angel = 10 * (math.pi / 180)  # the amount of degrees in each section default pr
 # folder = "data"  # temporary variables for our convenient
 suffix = "PointData"
 # points_file = "{}/{}".format(folder, suffix)
-height_removal = -2.0  # only looks at points from this height and more, put this to -100.0 if u dont want limit
+height_removal = -2.0  # only looks at points from this height and more, put this to -100.0 if you don't want limit
 radius = 0.2  # variables used to clean isolated points
 density = 2
 
@@ -91,10 +91,14 @@ def find_exit_point(points):
         if exit_distance < tmp:
             exit_distance = tmp
             exit_point = point
-    return exit_point
+    tree = kdt.KDTree(points, leaf_size=2)
+    # exit_point = points[(()[0])]
+    i = tree.query([exit_point], k=1, return_distance=False)
+    x = i[0]
+    return points[x[0]]
 
 
-def exit_algorythm(points_file):
+def exit_algorithm(points_file):
     points = []
     points3d = []
 
@@ -138,4 +142,7 @@ def exit_algorythm(points_file):
     print("Time to calculate exit point: {}".format(time.time() - clean_time))
 
     # plt.show()  # show the features` map
-    plt.savefig(f"data/map/{suffix}.png")  # save the map for later analysis
+    plt.savefig(f"{suffix}.png")  # save the map for later analysis
+
+    exit_point3d = [x for x in points3d if x[0] == exit_point[0] and x[1] == exit_point[1]][0]
+    return exit_point3d
