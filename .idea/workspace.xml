@@ -8,7 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="55494412-cc34-4924-862e-cb51698727ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/algorithm/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/PointData.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/data/PointData.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/data/map/PointData.png" afterDir="false" />
@@ -23,17 +22,13 @@
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/data/pointData8.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/data/pointDataDekel.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/data/pointDataVered.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/map/PointDataDanny3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/map/PointDataDanny4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/lab.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/lab.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/previous ideas/density algorithm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/previous ideas/distances algorithm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/previous ideas/polar algorithm- with bug.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/AutonomousDrone.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/Autonomous-navigation/AutonomousDrone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuk/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/zuk/Autonomous-navigation" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previous ideas/algorithm_backup.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +36,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/algorithm/Autonomous-navigation" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1xDd36sWCspAtuCPkZGn0n7mmEj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
