@@ -92,8 +92,7 @@ def find_exit_point(points):
             exit_distance = tmp
             exit_point = point
     tree = kdt.KDTree(points, leaf_size=2)
-    # exit_point = points[(()[0])]
-    i = tree.query([exit_point], k=1, return_distance=False)
+    i = tree.query([exit_point], k=1, return_distance=False)  # return the closest feature to the selected exit point
     x = i[0]
     return points[x[0]]
 
