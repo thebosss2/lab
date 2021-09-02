@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="55494412-cc34-4924-862e-cb51698727ae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/AutonomousDrone.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Data/output3/exitPoints.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Bad Database/liam_brother/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/Try1/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/Try2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/Try3/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/Try4/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/Try5/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/First_Room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/Last one/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/Last one/pointData1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/Last one/pointData2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/Last one/pointData3.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/Main Room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/MainRoomExit/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/success/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/success/pointData0_second_try.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/success/pointData2_second_try.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Demo/success/pointData73.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Gal_Rooms/Dor_Room_1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Gal_Rooms/Dor_Room_2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Gal_Rooms/Room1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Hili's_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Liam_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Liam_succah_entrance/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointData1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointData2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointData8.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataDanny.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataDanny_1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataDanny_2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataDekel.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataLiam_outdoor.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/More rooms/pointDataVered.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Secretariat_Room/Try1/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Secretariat_Room/Try2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Secretariat_Room/Try3/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Secretariat_Room/Try4/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/Secretariat_Room/Try5/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/dani_arial_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/dani_kitchen/scan_1/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/dani_office/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/gal_arbel_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/invent_corredor/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/invent_outside_in/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/liam_brother2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/liam_brother_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/liam_parents_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/liam_room/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/pointDataLivingRoom-1.odg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_1/Figure_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_1/exit path.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_1/pointData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_1/rectangle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_2/exit_path.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_2/rectangle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/mylivingroom/scan_3/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/exit_points.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/pointData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/points.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/rect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/rectangle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_1/rooms_drawing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_2/entrances.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_2/rect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/several room entrances/scan_3/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/shunit_bedroom/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/shunit_lost_room/scan_1/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/shunit_lost_room/scan_2/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Database/tzuk_grandmother_bedroom/pointData0.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Documentation/Git - Basic operations manual.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Documentation/Orb_Slam installation guide + ROS.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Documentation/Orb_Slam installation guide - Ubuntu20.4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Documentation/scan code installation guide.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Frame.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Line.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/djitellopy/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/djitellopy/swarm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/djitellopy/tello.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/offline scan - guide/offline scan - guide.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/offline scan - guide/offline_orb_slam.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Examples_Monocular/ReadMe.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Examples_Monocular/tello.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Examples_Monocular/tello.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Include/Frame.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Include/Map.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Include/ReadMe.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Include/System.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/Include/Tracking.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/LocalMapping.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/LoopClosing.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/Map.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/ReadMe.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/System.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/Tracking.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Packages/orb_slam/src/Viewer.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Pizza.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Point.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Polygon.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/Room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/TwoDPy_plot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/adjust_rectangle_from_frame_ids.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/auxiliary_functions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/best_rectangle.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/clean_data_dbscan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/collision_detector.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/computeScale.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/corridor_identification.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/drone_mapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/entrance.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/exit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/find_floor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/find_point.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/frames_details.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/join_clusters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/min_bounding_rect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/navigate_by_click.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/not_enough_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/scan_floor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/Autonomous-navigation/source.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final algorithm/algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/final algorithm/algorithm.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1xDd36sWCspAtuCPkZGn0n7mmEj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/algorythm/Autonomous-navigation/algorithm.py" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/algorythm/Autonomous-navigation" />
+      <recent name="$PROJECT_DIR$/algorythm" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.AutonomousDrone">
+    <configuration name="AutonomousDrone" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
+      <module name="lab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/Autonomous-navigation" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/Autonomous-navigation/AutonomousDrone.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="algorithm" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="lab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algorithm/Autonomous-navigation" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algorithm/Autonomous-navigation/algorithm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.algorithm" />
+      <item itemvalue="Python.AutonomousDrone" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.AutonomousDrone" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="55494412-cc34-4924-862e-cb51698727ae" name="Changes" comment="" />
+      <created>1629893392651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1629893392651</updated>
+      <workItem from="1630345603391" duration="4100000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
